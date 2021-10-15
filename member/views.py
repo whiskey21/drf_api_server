@@ -10,4 +10,4 @@ class MemberView(viewsets.ModelViewSet):
     serializer_class = MemberSerializer
     permission_classes = (permissions.IsAuthenticated,)
     def perform_create(self, serializer):
-        serializer.save()
+        serializer.save(user=self.request.user)
