@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Member
+from .models import Member, Enterance
 from django.contrib.auth.models import User
 
 
@@ -9,12 +9,22 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email')
 
 class MemberSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
     class Meta:
         model = Member
         fields = (
             'id',
-            'user',
             'name',
             'phoneNum',
         )
+
+class EnteranceSerializer(serializers.ModelSerializer):
+    info = MemberSerializer(read_only=True)
+    class Meta:
+        model = Enterance
+        fields = (
+            'eid',
+            'memberID',
+            'info',
+            'enterance_time',
+        )
+        read_only_fields = ('enterance_time',)
